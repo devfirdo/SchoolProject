@@ -1,0 +1,83 @@
+{% extends 'navbar2.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg2.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Arial", sans-serif;
+        color: #fff;
+        text-align: center;
+
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        color: black; 
+    }
+
+    table {
+        margin: 20px auto; 
+        border-collapse: collapse; 
+        width: 80%; 
+    }
+
+    th, td {
+        border: 1px solid #fff; 
+        padding: 10px;
+        color : black;
+    }
+
+    th {
+        background-color: #B22222; 
+    }
+
+    tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.2); 
+    }
+
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    a {
+        color: #00ffcc; 
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    a:hover {
+        color: #ffcc00; 
+    }
+</style>
+
+<h1>Student Details</h1>
+<table border=1>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>JOINING DATE</th>
+        <th>COURSE</th>
+        <th>COURSE FEE</th>
+        <th>ACTION</th>
+    </tr>
+    {% for i in std %}
+    <tr>
+        <td>{{i.student_name}}</td>
+        <td>{{i.student_email}}</td>
+        <td>{{i.student_age}}</td>
+        <td>{{i.student_joining_date|date:'Y-m-d'}}</td>
+        <td>{{i.student_course.course_name}}</td>
+        <td>{{i.student_course.course_fee}}</td>
+        <td>
+            <a href="{% url 'std_edit' i.id %}">EDIT</a>
+            <br>
+            <a href="{% url 'std_delete' i.id %}">DELETE</a>
+        </td>
+    </tr>
+    {% endfor %}    
+</table>
+
+{% endblock %}

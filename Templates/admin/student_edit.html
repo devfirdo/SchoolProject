@@ -1,0 +1,117 @@
+{% extends 'navbar2.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg2.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Arial", sans-serif;
+        color: #fff;
+        text-align: center;
+        
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        color: black;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    input {
+        background-color: rgba(255, 255, 255, 0.4);
+        border-top: none !important;
+        border-right: none !important;
+        border-radius: 20px;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    select {
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    input:hover, select:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: black;
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(to right, #ff0066, #ff7f7f);
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        width : 40%;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    input[type="submit"]:hover {
+        background: linear-gradient(to right, #ff7f7f, #ff0066);
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<h1>Edit Student</h1>
+<form action="{% url 'student_updation' std.id %}" method='post'>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><input type="text" value="{{std.student_name}}" name='sname'></td>
+        </tr>
+        <tr>
+            <td><input type="number"  value="{{std.student_age}}" name='sage'></td>   
+        </tr>
+        <tr>
+            <td><input type="email" value="{{std.student_email}}" name='smail'></td>   
+        </tr>
+        <tr>
+            <td><input type="date"  value="{{std.student_joining_date|date:'Y-m-d'}}" name='sdate'></td>   
+        </tr>
+        <tr>
+            <td>
+                <select name="sel">
+                    {% for i in crs %}
+                        {% if i.id == std.student_course.id %}
+                        <option value="{{i.id}}" selected>{{i.course_name}}</option>
+                        {% else %}
+                        <option value="{{i.id}}">{{i.course_name}}</option> 
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit"></td>
+        </tr>
+    </table>
+    <tr></tr>
+</form>
+
+{% endblock %}

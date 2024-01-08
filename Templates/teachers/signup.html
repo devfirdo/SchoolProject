@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <style>
+    body {
+      background-image: url("{% static 'images/bg2.png' %}");
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Arial', sans-serif; 
+    }
+
+    nav a {
+        font-size: 18px;
+        position: relative;
+        text-decoration: none;
+        overflow: hidden;
+        color : black;
+    }
+
+    nav .active a::before,
+    nav a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: yellow;
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    nav a:hover::before {
+        transform-origin: bottom left;
+        transform: scaleX(1);
+    }
+
+    nav .active a,
+    nav a:hover {
+        color: yellow; 
+        transform: scaleX(1.1);
+    }
+
+    form {
+        max-width: 400px;
+        margin: 10px auto;
+        padding: 10px;
+        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+    }
+
+    td {
+        padding: 4px;
+    }
+
+    input {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    select {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        margin-top: 10px;
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(to right, #ff0066, #ff7f7f);
+        color: #fff;
+        width :30%;
+        margin-left:124px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    input[type="submit"]:hover {
+        background: linear-gradient(to right, #ff7f7f, #ff0066);
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    select:hover,
+    input:hover {
+        background-color: rgba(255, 255, 255, 1);
+    }
+    .file-upload {
+      display: inline-block;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(to right, #00c2ff, #007bff);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+
+  .file-upload:hover {
+      background: linear-gradient(to right, #007bff, #00c2ff);
+      transform: translateY(-2px);
+  }
+
+  .file-upload input[type="file"] {
+      display: none;
+  }
+
+    {% for i in  messages %}
+    .error-message {
+        color: #dc3545; 
+        margin-top: 10px;
+    }
+    {% endfor %}
+  </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#" ><img src="{% static 'images/school.png' %}"class="img-fluid" style="max-width: 50px;" alt="Logo">OXFORD</a>
+          <div class="navbar-nav  ml-auto">
+            <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+          </div>
+      </nav>
+      <form action="{% url 'teacher_registration' %}" enctype="multipart/form-data" method='post'>
+        {% csrf_token %}
+        <table>
+          <tr>
+            <td><input type="text" placeholder='First Name' name='tfname'></td>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder='Second Name' name='tlname'></td> 
+          </tr>
+          <tr>
+            <td><input type="text" placeholder='Username' name='tuname'></td>
+          </tr>
+          <tr>
+            <td><input type="password" placeholder='Password' name='tpass'></td>
+          </tr>
+          <tr>
+            <td><input type="password" placeholder='Confirm Password' name='tcpass'></td> 
+          </tr>
+          <tr>
+            <td><input type="text" placeholder='Adress'name='taddress'></td>
+          </tr>
+          <tr>
+            <td><input type="number" placeholder='Age'name='tage'></td>
+          </tr>
+          <tr>
+            <td><input type="email" placeholder='Email'name='temail'></td>
+          </tr>
+          <tr>
+            <td><input type="number" placeholder='Contact Number'name='tnum'></td> 
+          </tr>
+          <tr>
+            <td>
+                <label for="timage" class="file-upload" style='width:100%'>
+                    Choose Image
+                    <input type="file" id="timage" name="timage" accept="image/*" style="display:none;">
+                </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select name="course" >
+                {% for i in crs %}
+                <option value="{{i.id}}">{{i.course_name}}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="error-message">
+              {% for i in  messages %}
+                {{ i }}
+              {% endfor %}
+            </td>
+          </tr>
+        </table>
+        <input type="submit">
+      </form>
+</body>
+</html>

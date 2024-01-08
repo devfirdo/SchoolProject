@@ -1,0 +1,90 @@
+{% extends 'navbar2.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg5.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Arial", sans-serif;
+        color: #fff;
+        text-align: center;
+    }   
+
+    h1 {
+        margin-top: 70px;
+        margin-bottom: 30px;
+        color: #FFD700; 
+    }
+
+    table {
+        margin: 0 auto; 
+    }
+    form {
+        max-width: 340px;
+        margin: 5px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    input {
+        background-color: rgba(255, 255, 255, 0.4);
+        border-top: none !important;
+        border-right: none !important;
+        border-radius: 20px;
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    input:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: black;
+    }
+
+    input[type="submit"] {
+        background: linear-gradient(to right, #ffcc00, #ff9900);
+        color: #fff;
+        width : 40%;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+    input[type="submit"]:hover {
+        background: linear-gradient(to right, #ff9900, #ffcc00);
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<h1>Add Course</h1>
+<form action="{% url 'course_insertion' %}" method='post'>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><input type="text" placeholder='Course Name' name='cname'></td>
+        </tr>
+        <tr>
+            <td><input type="number" placeholder='Course Fee' name='cfee'></td>   
+        </tr>
+        <tr>
+            <td><input type="submit" value="Add Course"></td>
+        </tr>
+        <tr>
+            <td>
+                {% for i in messages %}
+                {{i}}
+                {% endfor %}
+            </td>   
+            
+        </tr>
+    </table>
+</form>
+
+{% endblock %}

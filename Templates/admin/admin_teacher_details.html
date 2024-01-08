@@ -1,0 +1,96 @@
+{% extends 'navbar2.html' %} 
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg3.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: "Arial", sans-serif;
+        color: #fff;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 20px;
+    }
+
+    table {
+        margin-left : 220px;
+        width: 70%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #fff;
+    }
+    td {
+        color : black;
+    }
+    tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.2); 
+    }
+
+    tr:hover {
+        background-color: rgba(255, 255, 255, 0.4); 
+    }
+
+    th {
+        background-color: #000080;
+    }
+
+    td {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius: 50%;
+    }
+
+    a {
+        color: #ff3333; 
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    a:hover {
+        color: #ff6666; 
+    }
+</style>
+<h1>Teacher Details</h1>
+{% csrf_token %}
+<table border="1">
+    <tr>
+        <th>FIRST NAME</th>
+        <th>LAST NAME</th>
+        <th>USERNAME</th>
+        <th>EMAIL</th>
+        <th>ADDRESS</th>
+        <th>AGE</th>
+        <th>CONTACT NUMBER</th>
+        <th>COURSE</th>
+        <th>IMAGE</th>
+        <th>ACTION</th>
+    </tr>
+    {% for i in tcr %}
+        {% if not i.is_staff %}
+            <tr>
+                <td>{{ i.teacher_name.first_name }}</td>
+                <td>{{ i.teacher_name.last_name }}</td>
+                <td>{{ i.teacher_name.username }}</td> 
+                <td>{{ i.teacher_name.email }}</td>
+                <td>{{ i.teacher_address }}</td>
+                <td>{{ i.teacher_age }}</td>    
+                <td>{{ i.teacher_number }}</td>
+                <td>{{ i.teacher_course.course_name }}</td>
+                <td><img src="{{ i.teacher_image.url }}" alt="{{ i.teacher_name.username }}"></td>
+                <td><a href="{% url 'teacher_delete' i.id %}">DELETE</a></td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+{% endblock %}

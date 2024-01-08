@@ -1,0 +1,62 @@
+{% extends "navbar4.html" %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background-image: url("{% static 'images/bg3.png' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff; 
+  }
+
+  .card {
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+  .card img {
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+  .card-img-top {
+    border-radius: 15px 15px 0 0;
+  }
+
+  .card-title {
+    text-align: center;
+    margin-top: 5px;
+  }
+
+  .list-group-item {
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #000; 
+  }
+
+  .card-link {
+    color: blue; 
+  }
+
+  .card-link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="card" style="width: 20rem;">
+    <img src="{{tcr.teacher_image.url}}" class="card-img-top" alt="Teacher Image" style='width:70%;'>
+    <div class="card-body">
+      <h5 class="card-title">{{user.username}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Email - {{tcr.teacher_name.email}}</li>
+        <li class="list-group-item">Address - {{tcr.teacher_address}}</li>
+        <li class="list-group-item">Age -  {{tcr.teacher_age}}</li>
+        <li class="list-group-item">Contact - {{tcr.teacher_number}}</li>
+        <li class="list-group-item">Course - {{tcr.teacher_course.course_name}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="{% url 'teacher_page' %}" class="card-link">Go back</a>
+    </div>
+  </div>
+{% endblock %}

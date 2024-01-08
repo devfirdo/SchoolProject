@@ -1,0 +1,52 @@
+{% extends 'navbar3.html' %} {% block content %} {% load static %}
+<style>
+  body {
+    background-image: url("{% static 'images/bg3.png' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  }
+  p {
+    margin-top:50px;
+    text-align: center;
+  }
+ 
+  .image-container {
+    text-align: center;
+  }
+
+  .image-link {
+    display: inline-block;
+    text-decoration: none;
+    color: white !important;
+    font-size: 18px;
+    margin: 10px; 
+  }
+
+  .image-link img {
+    display: block;
+    margin: 0 auto;
+    width: 230px; 
+  }
+  .image-link img:hover {
+    background-color : purple;
+    color : white;
+    border-radius: 50%;
+  }
+</style>
+
+<p class=display-4 >welcome {{user.username}}</p>
+
+<div class="image-container">
+  <a href="{% url 'teacher_profile' %}" class="image-link">
+    <img src="{% static 'images/meeting.png' %}" alt="teacher" />
+    PROFILE
+  </a>
+
+  <a href="{% url 'teacher_edit' %}" class="image-link">
+    <img style='width:270px' src="{% static 'images/edit.png' %}" alt="edit" />
+    EDIT
+  </a>
+</div>
+
+{% endblock %}

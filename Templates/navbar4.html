@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <style>
+    nav a {
+        font-size: 18px;
+        position: relative;
+        text-decoration: none;
+        overflow: hidden;
+        color : black;
+    }
+   
+
+    nav .active a::before,
+    nav a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: blue;
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    nav a:hover::before {
+        transform-origin: bottom left;
+        transform: scaleX(1);
+    }
+    nav .active a,
+    nav a:hover {
+        color: blue; 
+        transform: scaleX(1.1);
+    }
+ 
+</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#" ><img src="{% static 'images/online.png' %}"class="img-fluid" style="max-width: 50px;" alt="Logo">TEACHERS</a>
+          <div class="navbar-nav  ml-auto">
+            <a class="nav-item nav-link" href="{% url 'teacher_home' %}">Teachers</a>
+            <a class="nav-item nav-link" href="{% url 'teacher_edit' %}">Edit</a>
+            <a class="nav-item nav-link" href="{% url 'teacher_profile' %}">My Profile</a>
+            <a class="nav-item nav-link" href="{% url 'teacher_logout' %}">Log Out</a>
+          </div>
+      </nav>
+      {% block content %}
+      {% endblock %}
+</body>
+</html>
